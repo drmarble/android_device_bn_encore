@@ -30,6 +30,7 @@ TARGET_CPU_ABI := armeabi-v7a
 ARCH_ARM_HAVE_ARMV7A := true
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_VARIANT := cortex-a8
 ARCH_ARM_HAVE_TLS_REGISTER := true
 #ARCH_ARM_USE_NON_NEON_MEMCPY := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
@@ -116,6 +117,8 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
+TARGET_RECOVERY_FSTAB = device/bn/encore/fstab.encore
+RECOVERY_FSTAB_VERSION := 2
 
 # Modem
 TARGET_NO_RADIOIMAGE := true

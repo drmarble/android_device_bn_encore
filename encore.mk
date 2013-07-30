@@ -24,6 +24,7 @@ $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 # Init files
 PRODUCT_COPY_FILES += \
+    device/bn/encore/fstab.encore:root/fstab.encore \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
     device/bn/encore/init.encore.usb.rc:root/init.encore.usb.rc \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc
@@ -63,10 +64,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
-
-# Vold
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/vold.encore.fstab:system/etc/vold.fstab
 
 # Media Profile
 PRODUCT_COPY_FILES += \

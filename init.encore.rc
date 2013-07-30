@@ -34,6 +34,7 @@ on init
 
 on fs
     # mount partitions
+    mount_all /fstab.encore
     mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
     mount ext4 /dev/block/mmcblk0p5 /system wait ro barrier=1
     mount ext4 /dev/block/mmcblk0p6 /data wait noatime nosuid nodev barrier=1 noauto_da_alloc
@@ -43,6 +44,7 @@ on post-fs-data
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
+    mount_all /fstab.encore
     setprop vold.post_fs_data_done 1
 
 # wi-fi
