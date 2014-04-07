@@ -26,7 +26,7 @@
         primary:    this storage is the primary external storage
         removable:  this is removable storage (for example, a real SD card)
         emulated:   the storage is emulated via the FUSE sdcard daemon
-        mtp-reserve: number of megabytes of storage MTP should reserve for free storage
+        mtpReserve: number of megabytes of storage MTP should reserve for free storage
                      (used for emulated storage that is shared with system's data partition)
 
       A storage should not have both emulated and removable set to true
@@ -38,13 +38,15 @@
              android:storageDescription="@string/storage_sd_card"
              android:primary="true"
              android:removable="true"
-             android:allowMassStorage="true" />
+             android:allowMassStorage="true"
+             android:maxFileSize="4096" />
     
     <storage android:mountPoint="/storage/sdcard0"
              android:storageDescription="@string/storage_internal"
              android:primary="false"
-             android:removable="true"
-             android:allowMassStorage="true" />
+             android:removable="false"
+             android:allowMassStorage="true"
+             android:maxFileSize="4096" />
 
     <storage android:mountPoint="/storage/usbdisk"
              android:storageDescription="@string/storage_usb"
