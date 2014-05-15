@@ -2,6 +2,8 @@ on init
     mkdir /dev/block/by-name 0755 root root
     start fsfinder
     wait /dev/block/by-name/system
+    start rescue_mode
+    wait /dev/.rescue_mode_configured
 
     start emmc_protect
 
@@ -9,6 +11,11 @@ on init
     wait /dev/.vold_configured
 
 service fsfinder /sbin/fsfinder
+    class core
+    disabled
+    oneshot
+
+service rescue_mode /sbin/recovery_rescue_mode.sh
     class core
     disabled
     oneshot
