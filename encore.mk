@@ -161,7 +161,8 @@ PRODUCT_COPY_FILES += \
 # additions to recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
-    $(LOCAL_PATH)/recovery/recovery_rescue_mode.sh:recovery/root/sbin/recovery_rescue_mode.sh
+    $(LOCAL_PATH)/recovery/recovery_rescue_mode.sh:recovery/root/sbin/recovery_rescue_mode.sh \
+    $(LOCAL_PATH)/recovery/recovery_emmc_protect.sh:recovery/root/sbin/recovery_emmc_protect.sh
 
 # XXX MAGIC: build process will delete any existing init.*.rc files from the
 # recovery image, then copy this file from the main initramfs to the recovery
