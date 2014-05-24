@@ -23,3 +23,8 @@ rmdir /emmc
 ln -s /storage/sdcard0 /emmc
 rmdir /sdcard
 ln -s /storage/sdcard1 /sdcard
+
+# Run /boot/postrecoveryboot.sh if one was provided
+mount -t vfat -o ro,umask=0022 /dev/block/by-name/boot /boot
+[ -x /boot/postrecoveryboot.sh ] && /boot/postrecoveryboot.sh
+umount /boot
