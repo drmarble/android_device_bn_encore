@@ -158,6 +158,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
+# BCB updating (for reboot to recovery)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/update_bcb.sh:system/bin/update_bcb.sh \
+    $(LOCAL_PATH)/prebuilt/bin/update_bcb.sh:recovery/root/sbin/update_bcb.sh
+
 # additions to recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \

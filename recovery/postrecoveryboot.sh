@@ -8,10 +8,8 @@ mount -o rw,remount /rom
 # Zero out the boot counter
 dd if=/dev/zero of=/rom/devconf/BootCnt bs=1 count=4
 
-# Reset the bootloader control block (bcb) file
-dd if=/dev/zero of=/rom/bcb bs=1 count=1088
-
-umount /rom
+# Set up a "device" for the BCB
+ln -s /rom/BCB /dev/block/by-name/bcb
 
 # Symlink /system/bin to /sbin for compatibility with the reboot-recovery
 # script and other shell scripts for the regular, non-recovery environment
