@@ -6,8 +6,28 @@ on init
     wait /dev/.rescue_mode_configured
 
     start emmc_protect
-
     start configure_vold
+
+    mkdir /rom 0755 root root
+    mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
+
+    start clear_bootcnt
+
+    # Set up a "device" for the bootloader control block (BCB)
+    symlink /rom/BCB /dev/block/by-name/bcb
+
+    # Symlink /system/bin to /sbin for compatibility with the reboot-recovery
+    # script and other shell scripts for the regular, non-recovery environment
+    rmdir /system/bin
+    symlink /sbin /system/bin
+
+    # Align /sdcard and /emmc with their usage in the non-recovery environment
+    rmdir /emmc
+    symlink /storage/sdcard0 /emmc
+    rmdir /sdcard
+    symlink /storage/sdcard1 /sdcard
+
+    # Make sure configure_vold is finished before continuing
     wait /dev/.vold_configured
 
 service fsfinder /sbin/fsfinder
@@ -26,6 +46,11 @@ service emmc_protect /sbin/recovery_emmc_protect.sh start
     oneshot
 
 service configure_vold /sbin/configure_vold.sh
+    class core
+    disabled
+    oneshot
+
+service clear_bootcnt /sbin/dd if=/dev/zero of=/rom/devconf/BootCnt bs=1 count=4
     class core
     disabled
     oneshot
