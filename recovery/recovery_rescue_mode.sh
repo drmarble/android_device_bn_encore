@@ -14,6 +14,7 @@ mkdir -p /boot
 mount -t vfat -o ro /dev/block/by-name/boot /boot
 
 if [ -f /boot/recovery-rescue-mode ]; then
+	: > /dev/.recovery_rescue_mode
 	# Redo the symlinks to point to eMMC
 	ln -sf /dev/block/mmcblk0p1 /dev/block/by-name/boot
 	ln -sf /dev/block/mmcblk0p6 /dev/block/by-name/userdata

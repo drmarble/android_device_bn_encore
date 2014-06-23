@@ -4,7 +4,12 @@
 mount -o remount,sync /rom
 sync
 
-mount -t vfat -o ro,umask=0022 /dev/block/by-name/boot /boot
+if [ -f /dev/.recovery_rescue_mode ]; then
+	# /boot points to eMMC, but our instructions are on SD card
+	mount -t vfat -o ro,umask=0022 /dev/block/mmcblk1p1 /boot
+else
+	mount -t vfat -o ro,umask=0022 /dev/block/by-name/boot /boot
+fi
 # If a command file for the recovery was provided in /boot, write the arguments
 # to the BCB so that the recovery will find them
 if [ -f /boot/recovery-commands ]; then
