@@ -8,11 +8,11 @@ FSTAB_NEW=/dev/fstab.encore
 PATH=/sbin:/system/bin:/system/xbin
 umask 0022
 
-bootdevice="`getprop ro.boot.bootdevice`"
+system_dev="`readlink /dev/block/by-name/system`"
 
 # Configure vold to find /sdcard partition
-case "$bootdevice" in
-	SD )
+case "$system_dev" in
+	/dev/block/mmcblk1p* )
 		# Get last partition on SD card
 		partnum="`for i in /dev/block/mmcblk1p*; do echo ${i##/dev/block/mmcblk1p}; done | sort -rn | head -n 1`"
 
