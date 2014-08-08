@@ -10,6 +10,7 @@ on early-init
     mkdir /mnt/media_rw 0700 media_rw media_rw
     mkdir /mnt/media_rw/sdcard0 0000 system system
     mkdir /mnt/media_rw/sdcard1 0000 system system
+    mkdir /mnt/media_rw/emmcdata 0000 system system
 
 # for backwards compatibility
     symlink /storage/sdcard0 /mnt/emmc
@@ -210,6 +211,10 @@ on post-fs-data
     chown system system /sys/devices/platform/omapdss/display3/timings
     chown system system /sys/devices/platform/omapdss/display2/code
 
+on early-boot
+    start confmountserv
+    wait /dev/.mountservice_configured
+
 on boot
     
 on property:dev.bootcomplete=1
@@ -237,6 +242,11 @@ service pvrsrvinit /system/bin/pvrsrvinit
     oneshot
 
 service configure_vold /system/bin/configure_vold.sh
+    class core
+    disabled
+    oneshot
+
+service confmountserv /system/bin/configure_mountservice.sh
     class core
     disabled
     oneshot
@@ -324,6 +334,25 @@ service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard0 /s
 service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
    class late_start
    disabled
+
+# FUSE sdcard daemon for emulated storage on /data/media
+service fuse_datamedia /system/bin/sdcard -u 1023 -g 1023 /data/media/0 /storage/sdcard0
+    class late_start
+    disabled
+
+# FUSE sdcard daemon for emulated storage on eMMC /data partition's /data/media
+# (for SD card installs only)
+service fuse_emmcmedia /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/emmcdata/media/0 /storage/sdcard0
+    class late_start
+    disabled
+
+# Start the appropriate FUSE sdcard service for /emmc depending on install
+# location and eMMC partition layout
+service emmcstorage /system/bin/mount_emmc_storage.sh
+    class late_start
+    user root
+    group root
+    oneshot
 
 # load DSP firmware
 service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof

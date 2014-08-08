@@ -31,7 +31,9 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     fsfinder \
-    configure_vold.sh
+    configure_vold.sh \
+    configure_mountservice.sh \
+    mount_emmc_storage.sh
 
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
