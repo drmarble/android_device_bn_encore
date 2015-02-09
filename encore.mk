@@ -22,18 +22,17 @@ DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
-# make cm build happy
-PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/boot/dummy.img:boot.img
-
 # Init files
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
     device/bn/encore/init.encore.usb.rc:root/init.encore.usb.rc \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc \
-    device/bn/encore/fstab.encore:root/fstab.encore
+    device/bn/encore/fstab.encore:root/fstab.encore \
+    device/bn/encore/prebuilt/boot/MLO:MLO \
+    device/bn/encore/prebuilt/boot/u-boot.bin:u-boot.bin
 
 PRODUCT_PACKAGES += \
+    libwpa_client \
     fsfinder \
     configure_vold.sh
 

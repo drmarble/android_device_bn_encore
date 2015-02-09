@@ -22,13 +22,13 @@ PRODUCT_RELEASE_NAME := NookColor
 # common_full_tablet_wifionly.mk to avoid automatically bringing in the wrong
 # boot animation.
 TARGET_SCREEN_HEIGHT := 1024
-TARGET_SCREEN_WIDTH := 600
+TARGET_SCREEN_WIDTH := 480
 TARGET_BOOTANIMATION_HALF_RES := true
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_mini_tablet_wifionly.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_FINGERPRINT="bn/bn_encore/encore:4.4.4/KTU84P/1227136:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.4.4 KTU84P 1227136 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_FINGERPRINT="bn/bn_encore/encore:5.0.2/LRX22G/1649326:user/release-keys" PRIVATE_BUILD_DESC="encore-user 5.0.2 LRX22G 1649326 release-keys"
 
 PRODUCT_NAME := cm_encore
 PRODUCT_DEVICE := encore
