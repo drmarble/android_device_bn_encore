@@ -19,6 +19,8 @@
 
 #include <linux/types.h>
 
+typedef int ion_user_handle_t;
+
 struct ion_handle;
 /**
  * enum ion_heap_types - list of all possible types of heaps
@@ -243,10 +245,11 @@ struct ion_handle *ion_import_fd(struct ion_client *client, int fd);
  * Provided by userspace as an argument to the ioctl
  */
 struct ion_allocation_data {
-	size_t len;
-	size_t align;
-	unsigned int flags;
-	struct ion_handle *handle;
+ size_t len;
+ size_t align;
+ unsigned int heap_id_mask;
+ unsigned int flags;
+ ion_user_handle_t handle;
 };
 
 /**
@@ -261,8 +264,8 @@ struct ion_allocation_data {
  * provides the file descriptor and the kernel returns the handle.
  */
 struct ion_fd_data {
-	struct ion_handle *handle;
-	int fd;
+ ion_user_handle_t handle;
+ int fd;
 	unsigned char cacheable;
 };
 
@@ -271,7 +274,7 @@ struct ion_fd_data {
  * @handle:	a handle
  */
 struct ion_handle_data {
-	struct ion_handle *handle;
+ ion_user_handle_t handle;
 };
 
 /**
@@ -352,6 +355,8 @@ struct ion_cached_user_buf_data {
  * be retrieved via ION_IOC_IMPORT.
  */
 #define ION_IOC_SHARE		_IOWR(ION_IOC_MAGIC, 4, struct ion_fd_data)
+
+#define ION_IOC_SYNC _IOWR(ION_IOC_MAGIC, 7, struct ion_fd_data)
 
 /**
  * DOC: ION_IOC_IMPORT - imports a shared file descriptor
