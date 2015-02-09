@@ -31,10 +31,18 @@
  */
 
 static const struct sensor_t sSensorList[] = {
-        { "KXTF9 3-axis Accelerometer",
-                "Kionix",
-                1, SENSORS_HANDLE_BASE+ID_A,
-                SENSOR_TYPE_ACCELEROMETER, 8.0f*9.81f, (8.0f*9.81f)/2048.0f, 0.57f, 0, 0, 0, { } },
+        {
+		.name		= "KXTF9 3-axis Accelerometer",
+		.vendor		= "Kionix",
+		.version	= 1,
+		.handle		= SENSORS_HANDLE_BASE+ID_A,
+		.type		= SENSOR_TYPE_ACCELEROMETER,
+		.maxRange	= (8.0f*GRAVITY_EARTH),
+		.resolution	= (8.0f*GRAVITY_EARTH)/2048.0f,
+		.power		= 0.57f,
+		.minDelay	= 0,
+		.reserved	= { }
+	},
 };
 
 static int open_sensors(const struct hw_module_t* module, const char* name,
