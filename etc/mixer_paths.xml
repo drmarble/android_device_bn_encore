@@ -1,0 +1,27 @@
+<mixer>
+  <!-- These are the initial mixer settings -->
+  <ctl name="HandsfreeR Switch" value="1" />
+  <ctl name="HandsfreeL Switch" value="1" />
+  <ctl name="HeadsetR Mixer AudioR2" value="0" />
+  <ctl name="HeadsetL Mixer AudioL2" value="0" />
+  <ctl name="HandsfreeR Mux" value="AudioR2" />
+  <ctl name="HandsfreeL Mux" value="AudioL2" />
+
+  <path name="speaker">
+    <ctl name="HandsfreeR Switch" value="1" />
+    <ctl name="HandsfreeL Switch" value="1" />
+    <ctl name="HeadsetR Mixer AudioR2" value="0" />
+    <ctl name="HeadsetL Mixer AudioL2" value="0" />
+    <ctl name="HandsfreeR Mux" value="AudioR2" />
+    <ctl name="HandsfreeL Mux" value="AudioL2" />
+  </path>
+
+  <path name="headphone">
+    <ctl name="HandsfreeR Switch" value="0" />
+    <ctl name="HandsfreeL Switch" value="0" />
+    <ctl name="HeadsetR Mixer AudioR2" value="1" />
+    <ctl name="HeadsetL Mixer AudioL2" value="1" />
+    <ctl name="HandsfreeR Mux" value="AudioR2" />
+    <ctl name="HandsfreeL Mux" value="AudioL2" />
+  </path>
+</mixer>
