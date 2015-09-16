@@ -48,7 +48,11 @@ WITH_DEXPREOPT := true
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_ota_from_target_files
 TARGET_SYSTEMIMAGE_USE_SQUISHER := true
-
+TARGET_USE_FILE_OTA := true
+TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
+BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
+TARGET_ALLOW_NON_PIE_EXECUTABLES := true
+TARGET_NEEDS_NON_PIE_SUPPORT := true
 TARGET_NO_RADIOIMAGE := true
 
 # Kernel image configuration
@@ -58,6 +62,8 @@ BOARD_KERNEL_BASE := 0x20000000
 BOARD_KERNEL_IMAGE_NAME := uImage
 BOARD_PAGE_SIZE := 0x00000800
 BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
+BOARD_USES_UBOOT_MULTIIMAGE := true
+#TARGET_PROVIDES_RELEASETOOLS := true
 # Include a 2ndbootloader
 TARGET_BOOTLOADER_IS_2ND := true
 
@@ -149,6 +155,8 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # Recovery options
+
+#TARGET_NO_RECOVERY := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_keys.c
 BOARD_CUSTOM_RECOVERY_UI := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "/system/bin/update_bcb.sh"
