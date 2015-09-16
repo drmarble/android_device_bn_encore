@@ -39,6 +39,12 @@ PRODUCT_PACKAGES += \
     configure_mountservice.sh \
     mount_emmc_storage.sh
 
+# CM Platform Library
+PRODUCT_PACKAGES += \
+     org.cyanogenmod.platform-res \
+     org.cyanogenmod.platform \
+     org.cyanogenmod.platform.xml
+
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/usr/idc/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
