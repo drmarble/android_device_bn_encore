@@ -184,6 +184,7 @@ PRODUCT_COPY_FILES += \
 
 # Product specfic packages
 PRODUCT_PACKAGES += \
+    pvrsrvinit \
     hwcomposer.omap3 \
     lights.encore \
     sensors.encore \
