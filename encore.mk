@@ -264,7 +264,13 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapsize=128m
+    dalvik.vm.heapsize=128m \
+    debug.sf.nobootanimation=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-flags=--no-watch-dog
+
+$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
 #$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
