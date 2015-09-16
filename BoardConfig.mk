@@ -52,7 +52,7 @@ TARGET_SYSTEMIMAGE_USE_SQUISHER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Kernel image configuration
-BOARD_KERNEL_CMDLINE := androidboot.console=ttyO0,115200n8 rw init=/init videoout=omap24xxvout omap_vout_mod.video1_numbuffers=6 omap_vout_mod.vid1_static_vrfb_alloc=y omap_vout_mod.video2_numbuffers=6 omap_vout_mod.vid2_static_vrfb_alloc=y omapfb.vram=0:8M no_console_suspend
+BOARD_KERNEL_CMDLINE := androidboot.console=ttyO0,115200n8 rw init=/init videoout=omap24xxvout omap_vout_mod.video1_numbuffers=6 omap_vout_mod.vid1_static_vrfb_alloc=y omap_vout_mod.video2_numbuffers=6 omap_vout_mod.vid2_static_vrfb_alloc=y omapfb.vram=0:8M no_console_suspend androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x20000000
 BOARD_KERNEL_IMAGE_NAME := uImage
 BOARD_PAGE_SIZE := 0x00000800
