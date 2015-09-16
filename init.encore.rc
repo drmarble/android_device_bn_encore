@@ -212,6 +212,7 @@ on post-fs-data
     chown system system /sys/devices/platform/omapdss/display2/code
 
 on early-boot
+    start pvrsrvinit
     start confmountserv
     wait /dev/.mountservice_configured
 
@@ -239,6 +240,7 @@ service pvrsrvinit /system/bin/pvrsrvinit
     class core
     user root
     group root
+    disabled
     oneshot
 
 service configure_vold /system/bin/configure_vold.sh
