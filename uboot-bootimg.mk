@@ -44,39 +44,39 @@ INSTALLED_RAMDISK_TARGET := $(BUILT_UBOOT_RAMDISK_TARGET)
 ifeq ($(BOARD_USES_UBOOT_MULTIIMAGE),true)
     ifneq ($(strip $(TARGET_NO_KERNEL)),true)
 
-	INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
+        INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
 
-	INTERNAL_UBOOT_MULTIIMAGENAME := $(PRODUCT_VERSION)  $(TARGET_DEVICE) Multiboot
+        INTERNAL_UBOOT_MULTIIMAGENAME := $(PRODUCT_VERSION)  $(TARGET_DEVICE) Multiboot
 
-	INTERNAL_UMULTIIMAGE_ARGS := -A ARM -O Linux -T multi -C none -n "$(INTERNAL_UBOOT_MULTIIMAGENAME)"
+        INTERNAL_UMULTIIMAGE_ARGS := -A ARM -O Linux -T multi -C none -n "$(INTERNAL_UBOOT_MULTIIMAGENAME)"
 
-	BOARD_UBOOT_ENTRY := $(strip $(BOARD_UBOOT_ENTRY))
-	ifdef BOARD_UBOOT_ENTRY
-	    INTERNAL_UMULTIIMAGE_ARGS += -e $(BOARD_UBOOT_ENTRY)
-	endif
+        BOARD_UBOOT_ENTRY := $(strip $(BOARD_UBOOT_ENTRY))
+        ifdef BOARD_UBOOT_ENTRY
+            INTERNAL_UMULTIIMAGE_ARGS += -e $(BOARD_UBOOT_ENTRY)
+        endif
 
-	BOARD_UBOOT_LOAD := $(strip $(BOARD_UBOOT_LOAD))
-	ifdef BOARD_UBOOT_LOAD
-	    INTERNAL_UMULTIIMAGE_ARGS += -a $(BOARD_UBOOT_LOAD)
-	endif
+        BOARD_UBOOT_LOAD := $(strip $(BOARD_UBOOT_LOAD))
+        ifdef BOARD_UBOOT_LOAD
+            INTERNAL_UMULTIIMAGE_ARGS += -a $(BOARD_UBOOT_LOAD)
+        endif
 
-	INTERNAL_UMULTIIMAGE_ARGS += -d $(INSTALLED_KERNEL_TARGET):$(BUILT_UBOOT_RAMDISK_TARGET)
-	ZIP_SAVE_UBOOTIMG_ARGS := $(INTERNAL_UMULTIIMAGE_ARGS)
-	$(INSTALLED_BOOTIMAGE_TARGET): $(MKIMAGE) $(INTERNAL_RAMDISK_FILES) $(BUILT_UBOOT_RAMDISK_TARGET) $(INSTALLED_KERNEL_TARGET)
+        INTERNAL_UMULTIIMAGE_ARGS += -d $(INSTALLED_KERNEL_TARGET):$(BUILT_UBOOT_RAMDISK_TARGET)
+        ZIP_SAVE_UBOOTIMG_ARGS := $(INTERNAL_UMULTIIMAGE_ARGS)
+$(INSTALLED_BOOTIMAGE_TARGET): $(MKIMAGE) $(INTERNAL_RAMDISK_FILES) $(BUILT_UBOOT_RAMDISK_TARGET) $(INSTALLED_KERNEL_TARGET)
 			$(MKIMAGE) $(INTERNAL_UMULTIIMAGE_ARGS) $@
 			@echo ----- Made uboot multiimage -------- $@
 
     endif #!TARGET_NO_KERNEL
 else # Seperate uboot images kernel/ramdisk
     # HACK: Redefine the bootimage target to just build the ramdisk
-    $(INSTALLED_BOOTIMAGE_TARGET): $(BUILT_UBOOT_RAMDISK_TARGET)
+$(INSTALLED_BOOTIMAGE_TARGET): $(BUILT_UBOOT_RAMDISK_TARGET)
 endif
-
 
 #
 # Recovery Image
 #
 INSTALLED_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.img
+recovery_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.img
 INTERNAL_RECOVERYRAMDISK_IMAGENAME := CWM $(TARGET_DEVICE) Ramdisk
 INTERNAL_RECOVERYRAMDISKIMAGE_ARGS := -A ARM -O Linux -T RAMDisk -C none -n "$(INTERNAL_RECOVERYRAMDISK_IMAGENAME)" -d $(recovery_ramdisk)
 recovery_uboot_ramdisk := $(recovery_ramdisk:%.img=%.ub)
@@ -87,32 +87,35 @@ $(recovery_uboot_ramdisk): $(MKIMAGE) $(recovery_ramdisk)
 	@echo ----- Made recovery uboot ramdisk -------- $@
 
 ifeq ($(BOARD_USES_UBOOT_MULTIIMAGE),true)
-    $(warning We are here.)
     INTERNAL_RECOVERYIMAGE_IMAGENAME := CWM $(TARGET_DEVICE) Multiboot
-    INTERNAL_RECOVERYIMAGE_ARGS := -A ARM -O Linux -T multi -C none -n "$(INTERNAL_RECOVERYIMAGE_IMAGENAME)"
+    INTERNAL_RECOVERYIMAGE_ARGS := -A arm -T multi -C none -n "$(INTERNAL_RECOVERYIMAGE_IMAGENAME)"
 
     BOARD_UBOOT_ENTRY := $(strip $(BOARD_UBOOT_ENTRY))
     ifdef BOARD_UBOOT_ENTRY
-	INTERNAL_RECOVERYIMAGE_ARGS += -e $(BOARD_UBOOT_ENTRY)
+        INTERNAL_RECOVERYIMAGE_ARGS += -e $(BOARD_UBOOT_ENTRY)
     endif
 
-    BOARD_UBOOT_LOAD := $(strip $(BOARD_UBOOT_LOAD))    
-    ifdef BOARD_UBOOT_LOAD
-	INTERNAL_RECOVERYIMAGE_ARGS += -a $(BOARD_UBOOT_LOAD)
-    endif
+# XXX somehow even though we don't define BOARD_UBOOT_LOAD, it's still
+# detected here and produces empty -a argument that confuses mkimage
+#    BOARD_UBOOT_LOAD := $(strip $(BOARD_UBOOT_LOAD))    
+#    ifdef BOARD_UBOOT_LOAD
+#        INTERNAL_RECOVERYIMAGE_ARGS += -a $(BOARD_UBOOT_LOAD)
+#    endif
+
+    recovery_kernel := $(INSTALLED_KERNEL_TARGET) # hard-coded for tenderloin
 
     INTERNAL_RECOVERYIMAGE_ARGS += -d $(strip $(recovery_kernel)):$(strip $(recovery_uboot_ramdisk))
 
-	$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKIMAGE) $(recovery_uboot_ramdisk) $(recovery_kernel)
-		$(MKIMAGE) $(INTERNAL_RECOVERYIMAGE_ARGS) $@
-		@echo ----- Made recovery uboot multiimage -------- $@
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKIMAGE) $(recovery_uboot_ramdisk) $(recovery_kernel)
+	$(MKIMAGE) $(INTERNAL_RECOVERYIMAGE_ARGS) $@
+	@echo ----- Made recovery uboot multiimage -------- $@
 
 else #!BOARD_USES_UBOOT_MULTIIMAGE
     # If we are not on a multiimage platform lets zip the kernel with the ramdisk
     # for Rom Manager
-    $(INSTALLED_RECOVERYIMAGE_TARGET): $(recovery_uboot_ramdisk) $(recovery_kernel)
-		$(hide) rm -f $@
-		zip -qDj $@ $(recovery_uboot_ramdisk) $(recovery_kernel)
-		@echo ----- Made recovery image \(zip\) -------- $@
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(recovery_uboot_ramdisk) $(recovery_kernel)
+	$(hide) rm -f $@
+	zip -qDj $@ $(recovery_uboot_ramdisk) $(recovery_kernel)
+	@echo ----- Made recovery image \(zip\) -------- $@
 
 endif
