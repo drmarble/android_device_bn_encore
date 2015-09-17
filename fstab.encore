@@ -10,7 +10,7 @@
 /dev/block/by-name/boot	/boot	vfat	fmask=177,dmask=077	recoveryonly
 
 # Swap devices
-/dev/block/zram0	none	swap	defaults	zramsize=100663296
+#drmdebug/dev/block/zram0	none	swap	defaults	zramsize=100663296
 
 # Bootloader control block
 /dev/block/by-name/bcb	/misc	emmc	defaults	recoveryonly
