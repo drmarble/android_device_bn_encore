@@ -26,6 +26,9 @@ Note that I enlarged the size of /system in the encore device tree. Dexpreopting
 
 Currently it doesn't have bluetooth or and hwc. I have deleted the hardware/ti/omap3 directory. This isn't a part of cm anymore but you may still have this in your local manifest. I just made a blank branch in its directory: cd hardware/ti/omap3 ; rm -r * ; git checkout -b blank ; git commit -a ; ctrl-o, ctrl-x. Then I just checkout blank but can checkout other branches when I am trying to get this to compile. We really could use cexec.out. hwc would be nice too. 
 
+I have fixed part of the problem with hardware/ti/omap3. The conficts were between omx and the ion implementation. I just removed the omx directory. Some additions from Rhyre on github are included. The tree is here:
+https://github.com/drmarble/android_hardware_ti_omap3/tree/no-omx
+
 Also note, I had repartitioned my emmc to use a data/media system. My data partition is large and media is gone. I also use an SD card though I do not install to it but rather do an emmc install. In theory, this should work with separate data and media partitions and no sd-card. I haven't tested it because I don't want to repartition again. 
 
 Note, I will not upload a finished update.zip file because this is just far to experimental. I want to hear from other builders first. If you want to try out lollipop on your encore you are going to have to build it yourself.
