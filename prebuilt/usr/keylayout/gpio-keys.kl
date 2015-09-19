@@ -15,7 +15,7 @@
 # gpio-keys.kl
 # This is the keylayout for the hardware buttons on the Nook Color.
 
-key 102     HOME            WAKE
+key 102     HOME
 key 114     VOLUME_DOWN
 key 115     VOLUME_UP
-key 116     POWER           WAKE
+key 116     POWER
