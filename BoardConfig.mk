@@ -39,11 +39,11 @@ TARGET_SPECIFIC_HEADER_PATH := device/bn/encore/include
 
 # System image configuration
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 561942784
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 461942784
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-WITH_DEXPREOPT := true
+#WITH_DEXPREOPT := true
 
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_ota_from_target_files
