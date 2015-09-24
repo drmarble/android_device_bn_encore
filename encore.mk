@@ -102,29 +102,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bin/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:obj/lib/libasound.so \
-   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:system/lib/libasound.so \
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/alsa.conf:system/usr/share/alsa/alsa.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/dsnoop.conf:system/usr/share/alsa/pcm/dsnoop.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/modem.conf:system/usr/share/alsa/pcm/modem.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/dpl.conf:system/usr/share/alsa/pcm/dpl.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/default.conf:system/usr/share/alsa/pcm/default.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/surround51.conf:system/usr/share/alsa/pcm/surround51.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/surround41.conf:system/usr/share/alsa/pcm/surround41.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/surround50.conf:system/usr/share/alsa/pcm/surround50.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/dmix.conf:system/usr/share/alsa/pcm/dmix.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/center_lfe.conf:system/usr/share/alsa/pcm/center_lfe.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/surround40.conf:system/usr/share/alsa/pcm/surround40.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/side.conf:system/usr/share/alsa/pcm/side.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/iec958.conf:system/usr/share/alsa/pcm/iec958.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/rear.conf:system/usr/share/alsa/pcm/rear.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/surround71.conf:system/usr/share/alsa/pcm/surround71.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/pcm/front.conf:system/usr/share/alsa/pcm/front.conf \
-    $(LOCAL_PATH)/prebuilt/alsa/conf/cards/aliases.conf:system/usr/share/alsa/cards/aliases.conf
-
 # If you'd like to build the audio components from source instead of using
 # the prebuilts, comment out the PRODUCT_COPY_FILES lines for audio above
 # and uncomment the lines below, then see BoardConfig.mk for further
@@ -133,6 +110,10 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_PACKAGES += \
 #    libaudio \
 #    alsa.omap3
+
+-PRODUCT_COPY_FILES += \
+-   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:obj/lib/libasound.so \
+-   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:system/lib/libasound.so
 
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/etc/audio_policy.conf:system/etc/audio_policy.conf \
@@ -198,6 +179,12 @@ PRODUCT_PACKAGES += \
     libaudiohw_legacy \
     audio.primary.encore \
     acoustics.default \
+    audio.r_submix.default \
+    audio.usb.default \
+    audio_policy.default \
+    tinycap \
+    tinymix \
+    tinyplay \
     com.android.future.usb.accessory \
     dhcpcd.conf \
     dspexec \
