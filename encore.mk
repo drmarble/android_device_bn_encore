@@ -256,8 +256,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=128m \
     debug.sf.nobootanimation=1
 
+WITH_ART_SMALL_MODE := true
+
+PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := --compiler-filter=interpret-only
+$(call add-product-dex-preopt-module-config,services,--compiler-filter=space)
+
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-flags=--no-watch-dog
+    dalvik.vm.dex2oat-flags=--no-watch-dog \
+    dalvik.vm.dex2oat-filter=interpret-only \
+    dalvik.vm.image-dex2oat-filter=speed
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
