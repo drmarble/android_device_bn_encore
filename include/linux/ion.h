@@ -18,7 +18,7 @@
 #define _LINUX_ION_H
 
 #include <linux/types.h>
-
+typedef int ion_user_handle_t;
 struct ion_handle;
 /**
  * enum ion_heap_types - list of all possible types of heaps
@@ -243,10 +243,11 @@ struct ion_handle *ion_import_fd(struct ion_client *client, int fd);
  * Provided by userspace as an argument to the ioctl
  */
 struct ion_allocation_data {
-	size_t len;
-	size_t align;
-	unsigned int flags;
-	struct ion_handle *handle;
+ size_t len;
+ size_t align;
+ unsigned int heap_id_mask;
+ unsigned int flags;
+ ion_user_handle_t handle;
 };
 
 /**
@@ -384,5 +385,13 @@ struct ion_cached_user_buf_data {
  */
 #define ION_IOC_MAP_GRALLOC	_IOWR(ION_IOC_MAGIC, 9, \
 				struct ion_map_gralloc_to_ionhandle_data)
+
+#define ION_IOC_MAGIC 'I'
+#define ION_IOC_ALLOC _IOWR(ION_IOC_MAGIC, 0,   struct ion_allocation_data)
+#define ION_IOC_FREE _IOWR(ION_IOC_MAGIC, 1, struct ion_handle_data)
+#define ION_IOC_MAP _IOWR(ION_IOC_MAGIC, 2, struct ion_fd_data)
+#define ION_IOC_SHARE _IOWR(ION_IOC_MAGIC, 4, struct ion_fd_data)
+#define ION_IOC_SYNC _IOWR(ION_IOC_MAGIC, 7, struct ion_fd_data)
+#define ION_IOC_CUSTOM _IOWR(ION_IOC_MAGIC, 6, struct ion_custom_data)
 
 #endif /* _LINUX_ION_H */
