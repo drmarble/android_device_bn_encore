@@ -111,9 +111,9 @@ PRODUCT_COPY_FILES += \
 #    libaudio \
 #    alsa.omap3
 
--PRODUCT_COPY_FILES += \
--   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:obj/lib/libasound.so \
--   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:system/lib/libasound.so
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:obj/lib/libasound.so \
+   $(LOCAL_PATH)/prebuilt/alsa/libasound.so:system/lib/libasound.so
 
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/etc/audio_policy.conf:system/etc/audio_policy.conf \
@@ -254,6 +254,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=128m \
+    persist.sys.media.use-awesome=true \
     debug.sf.nobootanimation=1
 
 WITH_ART_SMALL_MODE := true
