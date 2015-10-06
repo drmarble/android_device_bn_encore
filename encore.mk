@@ -168,6 +168,7 @@ PRODUCT_COPY_FILES += \
 # Product specfic packages
 PRODUCT_PACKAGES += \
     pvrsrvinit \
+    libPVRScopeServices.so \
     hwcomposer.omap3 \
     lights.encore \
     sensors.encore \
