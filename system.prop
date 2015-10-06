@@ -1,6 +1,7 @@
 #
 # system.prop for encore
 #
+ro.radio.noril=yes
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=30
 
