@@ -154,23 +154,6 @@ HARDWARE_OMX := true
 BOARD_SEPOLICY_DIRS += \
     device/bn/encore/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    bluetooth.te \
-    debuggered.te \
-    file_contexts \
-    device.te \
-    dhcp.te \
-    domain.te \
-    file.te \
-    init_shell.te \
-    mediaserver.te \
-    netd.te \
-    pvrsrvinit.te \
-    rild.te \
-    system.te \
-    tee.te \
-    vold.te
-
 
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
