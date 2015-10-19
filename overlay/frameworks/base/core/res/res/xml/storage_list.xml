@@ -39,16 +39,14 @@
              android:primary="true"
              android:removable="true"
              android:allowMassStorage="true"
-             android:maxFileSize="4096"
-             android:runtimeConfigLabel="sdcard1" />
+             android:maxFileSize="4096" />
     
     <storage android:mountPoint="/storage/sdcard0"
              android:storageDescription="@string/storage_internal"
              android:primary="false"
              android:removable="false"
              android:allowMassStorage="true"
-             android:maxFileSize="4096"
-             android:runtimeConfigLabel="sdcard0" />
+             android:maxFileSize="4096" />
 
     <storage android:mountPoint="/storage/usbdisk"
              android:storageDescription="@string/storage_usb"

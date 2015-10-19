@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <dirent.h>
 #include <math.h>
+#include <cstring>
 
 #include <poll.h>
 #include <pthread.h>
@@ -94,7 +95,7 @@ sensors_poll_context_t::~sensors_poll_context_t() {
 
 int sensors_poll_context_t::activate(int handle, int enabled) {
     int index = handleToDriver(handle);
-ALOGD("sensor activation called: handle=%d, enabled=%d********************************", handle, enabled);
+    ALOGD("sensor activation called: handle=%d, enabled=%d********************************", handle, enabled);
     if (index < 0) return index;
     int err =  mSensors[index]->enable(handle, enabled);
     if (enabled && !err) {

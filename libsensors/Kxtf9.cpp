@@ -21,6 +21,8 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <stdlib.h>
+#include <cstring>
+
 #include <sys/select.h>
 
 #include <cutils/log.h>
@@ -64,7 +66,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
         int bytes = sprintf(buffer, "%d\n", newState);
         err = write(fd, buffer, bytes);
         err = err < 0 ? -errno : 0;
-        close(fd);
+	close(fd);
     } else {
         err = -errno;
     }
@@ -73,7 +75,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
 
     if (!err) {
         mEnabled = newState;
-        setDelay(0, 100000000); // 100ms by default for faster re-orienting
+        setDelay(0, 40000000); // 40ms by default for faster re-orienting
     }
 
     return err;
@@ -96,7 +98,7 @@ int Kxtf9Sensor::setDelay(int32_t handle, int64_t ns)
             int bytes = sprintf(buffer, "%d\n", delay);
             err = write(fd, buffer, bytes);
             err = err < 0 ? -errno : 0;
-            close(fd);
+	    close(fd);
         } else {
             err = -errno;
         }

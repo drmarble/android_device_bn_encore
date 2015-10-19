@@ -150,11 +150,6 @@ USE_CAMERA_STUB := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 HARDWARE_OMX := true
 
-# SELinux stuff
-BOARD_SEPOLICY_DIRS += \
-    device/bn/encore/sepolicy
-
-
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true

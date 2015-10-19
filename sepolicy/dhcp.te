@@ -1,1 +1,0 @@
-allow dhcp self:rawip_socket { write create setopt };

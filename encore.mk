@@ -21,6 +21,8 @@
 DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+# Do we need/want a recovery-ramdisk.img?
+#$(call build-recoveryimage-target, $@)
 
 # make cm build happy
 PRODUCT_COPY_FILES += \
@@ -261,8 +263,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-flags=--no-watch-dog
-
-$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
 $(call inherit-product, hardware/ti/wlan/mac80211/wl127x-wlan-products.mk)
