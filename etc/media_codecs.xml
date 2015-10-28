@@ -75,7 +75,7 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
 -->
 <MediaCodecs>
     <Decoders>
-        <MediaCodec name="OMX.TI.Video.Decoder" >
+<!--        <MediaCodec name="OMX.TI.Video.Decoder" >
             <Type name="video/mp4v-es" />
             <Type name="video/3gpp" />
             <Type name="video/avc" />
@@ -91,7 +91,7 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
         </MediaCodec>
         <MediaCodec name="OMX.TI.WBAMR.decode" type="audio/amr-wb" />
         <MediaCodec name="OMX.TI.AMR.decode" type="audio/3gpp" />
-
+-->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
         <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
@@ -130,7 +130,7 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
     </Decoders>
 
     <Encoders>
-        <MediaCodec name="OMX.TI.Video.encoder" >
+<!--        <MediaCodec name="OMX.TI.Video.encoder" >
             <Type name="video/mp4v-es" />
             <Type name="video/3gpp" />
             <Type name="video/avc" />
@@ -147,7 +147,7 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
 
         <MediaCodec name="OMX.TI.WBAMR.encode" type="audio/amr-wb" />
         <MediaCodec name="OMX.TI.AMR.encode" type="audio/3gpp" />
-
+-->
         <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.google.flac.encoder" type="audio/flac" />
         <MediaCodec name="OMX.google.vp8.encoder" type="video/x-vnd.on2.vp8" />
