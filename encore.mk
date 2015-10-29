@@ -239,6 +239,7 @@ PRODUCT_PACKAGES += \
 	libdomx \
 	libstagefrighthw \
 	libion \
+	libion_ti \
 	smc_pa_ctrl \
 	tf_daemon
 
@@ -263,6 +264,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-flags=--no-watch-dog
+
+PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true
+
+PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.jit.codecachesize=0
+
+$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
 $(call inherit-product, hardware/ti/wlan/mac80211/wl127x-wlan-products.mk)

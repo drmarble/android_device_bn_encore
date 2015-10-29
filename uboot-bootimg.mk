@@ -63,6 +63,7 @@ ifeq ($(BOARD_USES_UBOOT_MULTIIMAGE),true)
         INTERNAL_UMULTIIMAGE_ARGS += -d $(INSTALLED_KERNEL_TARGET):$(BUILT_UBOOT_RAMDISK_TARGET)
         ZIP_SAVE_UBOOTIMG_ARGS := $(INTERNAL_UMULTIIMAGE_ARGS)
 $(INSTALLED_BOOTIMAGE_TARGET): $(MKIMAGE) $(INTERNAL_RAMDISK_FILES) $(BUILT_UBOOT_RAMDISK_TARGET) $(INSTALLED_KERNEL_TARGET)
+	$(call build-recoveryimage-target, $@)
 			$(MKIMAGE) $(INTERNAL_UMULTIIMAGE_ARGS) $@
 			@echo ----- Made uboot multiimage -------- $@
 
@@ -82,6 +83,7 @@ INTERNAL_RECOVERYRAMDISKIMAGE_ARGS := -A ARM -O Linux -T RAMDisk -C none -n "$(I
 recovery_uboot_ramdisk := $(recovery_ramdisk:%.img=%.ub)
 
 $(recovery_uboot_ramdisk): $(MKIMAGE) $(recovery_ramdisk)
+	$(call build-recoveryimage-target, $@)
 	@echo ----- Making recovery image ------
 	$(MKIMAGE) $(INTERNAL_RECOVERYRAMDISKIMAGE_ARGS) $@
 	@echo ----- Made recovery uboot ramdisk -------- $@
@@ -114,6 +116,7 @@ else #!BOARD_USES_UBOOT_MULTIIMAGE
     # If we are not on a multiimage platform lets zip the kernel with the ramdisk
     # for Rom Manager
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(recovery_uboot_ramdisk) $(recovery_kernel)
+#	$(call build-recoveryimage-target, $@)
 	$(hide) rm -f $@
 	zip -qDj $@ $(recovery_uboot_ramdisk) $(recovery_kernel)
 	@echo ----- Made recovery image \(zip\) -------- $@

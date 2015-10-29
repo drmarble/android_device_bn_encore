@@ -62,10 +62,15 @@ BOARD_KERNEL_BASE := 0x20000000
 BOARD_KERNEL_IMAGE_NAME := uImage
 BOARD_PAGE_SIZE := 0x00000800
 BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
-BOARD_USES_UBOOT_MULTIIMAGE := true
-#TARGET_PROVIDES_RELEASETOOLS := true
+#BOARD_USES_UBOOT_MULTIIMAGE := true
+TARGET_PROVIDES_RELEASETOOLS := true
 # Include a 2ndbootloader
 TARGET_BOOTLOADER_IS_2ND := true
+
+SKIP_BOOT_JARS_CHECK := true
+BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
+TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
+#TARGET_NO_RECOVERY := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
@@ -98,6 +103,13 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 # for frameworks/native/opengl/libs
 # disable use of unsupported EGL_KHR_gl_colorspace extension
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
+
+# lame egl patch
+# We do this on low-end devices only because it allows us to enable
+# h/w acceleration in the systemui process while keeping the
+# memory usage down.
+BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
+
 
 # for frameworks/native/libs/gui
 # disable use of EGL_KHR_fence_sync extension, since it slows things down
