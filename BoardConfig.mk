@@ -69,7 +69,7 @@ TARGET_BOOTLOADER_IS_2ND := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
-TARGET_KERNEL_CONFIG := encore_cm11_defconfig
+TARGET_KERNEL_CONFIG := encore_cm12_defconfig
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
 
@@ -158,26 +158,28 @@ USE_CAMERA_STUB := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 HARDWARE_OMX := true
 
+BOARD_USES_SECURE_SERVICES := true
+
 # SELinux stuff
 BOARD_SEPOLICY_DIRS += \
     device/bn/encore/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-    bluetooth.te \
-    debuggered.te \
     file_contexts \
-    device.te \
     dhcp.te \
-    domain.te \
     file.te \
     init_shell.te \
-    mediaserver.te \
+    init.te \
+    logbatterydata.te \
     netd.te \
     pvrsrvinit.te \
-    rild.te \
-    system.te \
-    tee.te \
-    vold.te
+    setup_fs.te \
+    shell.te \
+    smc_pa.te \
+    sysinit.te \
+    ueventd.te \
+    untrusted_app.te \
+    wpa_supplicant.te
 
 
 # Boot animation
