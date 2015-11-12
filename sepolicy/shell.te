@@ -1,0 +1,2 @@
+allow shell toolbox_exec:file {getattr execute read open execute_no_trans };
+allow shell kernel:system module_request;

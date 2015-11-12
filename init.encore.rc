@@ -44,6 +44,9 @@ on init
     # reduce swappiness for foreground processes
     write /proc/sys/vm/swappiness 20
 
+    # hoping this is preventing boot
+    export LD_PRELOAD "/system/lib/libboringssl-compat.so"
+
 on fs
     # set up links to block devices based on boot location
     mkdir /dev/block/by-name 0755 root root

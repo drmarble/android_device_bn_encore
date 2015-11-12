@@ -74,7 +74,7 @@ TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
-TARGET_KERNEL_CONFIG := encore_cm11_defconfig
+TARGET_KERNEL_CONFIG := encore_cm13_defconfig
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
 
@@ -161,6 +161,12 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/bn/encore/bluetooth
 USE_CAMERA_STUB := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 HARDWARE_OMX := true
+
+BOARD_USES_SECURE_SERVICES := true
+
+# SELinux stuff
+BOARD_SEPOLICY_DIRS += \
+    device/bn/encore/sepolicy
 
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
