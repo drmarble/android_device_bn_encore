@@ -28,7 +28,7 @@ TARGET_BOOTANIMATION_HALF_RES := true
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_mini_tablet_wifionly.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_FINGERPRINT="bn/bn_encore/encore:5.1.1/LRX22G/1649326:user/release-keys" PRIVATE_BUILD_DESC="encore-user 5.1.1 LRX22G 1649326 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_FINGERPRINT="bn/bn_encore/encore:6.0.0/MRX22G/1649326:user/release-keys" PRIVATE_BUILD_DESC="encore-user 6.0.0 MRX22G 1649326 release-keys"
 
 PRODUCT_NAME := cm_encore
 PRODUCT_DEVICE := encore
