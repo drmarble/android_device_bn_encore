@@ -1,1 +1,2 @@
 allow sysinit toolbox_exec:file { getattr execute read open execute_no_trans };
+allow sysinit kernel:system module_request;

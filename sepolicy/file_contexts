@@ -9,15 +9,20 @@
 #/system/bin/toolbox u:object_r:toolbox_exec:s0
 
 # fix mac and wifi
-/system/bin/fix-mac.sh u:object_r:fixmac_exec:s0
 /system/etc/firmware/ti-connectivity/wl1271-nvs.bin u:object_r:radio_data_file:s0
 /system/etc/firmware/ti-connectivity u:object_r:radio_data_file:s0
 
 # logbattery
 /system/bin/log_battery_data.sh u:object_r:logbatterydata_exec:s0
 
-# clearbootdata
-/sbin/clearbootdata.sh u:object_r:clearbootdata_exec:s0
+/system/xbin/store-mac-addr.sh u:object_r:storemacaddr_exec:s0
+/system/bin/mount_emmc_storage.sh u:object_r:mountemmcstorage_exec:s0
+/system/bin/configure_vold.sh u:object_r:configurevold_exec:s0
+/system/bin/configure_mountservice.sh u:object_r:configuremountservice_exec:s0
+
+
+# clearbootcnt
+/system/bin/clear_bootcnt.sh u:object_r:clearbootcnt_exec:s0
 
 # smc
 /system/bin/smc_pa_ctrl u:object_r:smc_pa_exec:s0

@@ -1,10 +1,20 @@
 # fix mac
-type fixmac_exec, exec_type, file_type;
+type storemacaddr_exec, exec_type, file_type;
 
 # clearbootdata
-type clearbootdata_exec, exec_type, file_type;
+type clearbootcnt_exec, exec_type, file_type;
 
-allow init fixmac_exec:file {execute getattr read open};
+# setup emmc/sdcard storage
+type mountemmcstorage_exec, exec_type, file_type;
+type configurevold_exec, exec_type, file_type;
+type configuremountservice_exec, exec_type, file_type;
+
+
+
+#============= logbatterydata ==============
+allow logbatterydata kernel:system module_request;
+
+allow init debugfs:dir mounton;
 
 allow toolbox self:capability sys_module;
 allow toolbox kernel:system module_request;
