@@ -108,10 +108,10 @@ PRODUCT_COPY_FILES += \
 # the prebuilts, comment out the PRODUCT_COPY_FILES lines for audio above
 # and uncomment the lines below, then see BoardConfig.mk for further
 # instructions.
-#$(call inherit-product-if-exists, external/alsa-lib/alsa-lib-products.mk)
-#PRODUCT_PACKAGES += \
-#    libaudio \
-#    alsa.omap3
+$(call inherit-product-if-exists, external/alsa-lib/alsa-lib-products.mk)
+PRODUCT_PACKAGES += \
+    libaudio \
+    alsa.omap3
 
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/prebuilt/alsa/libasound.so:obj/lib/libasound.so \

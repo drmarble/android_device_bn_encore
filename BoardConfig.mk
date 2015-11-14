@@ -146,7 +146,8 @@ BOARD_HAVE_BLUETOOTH_TI := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/bn/encore/bluetooth
 
 # Audio
-#BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_ALSA_AUDIO := true
+#BOARD_USES_LEGACY_ALSA_AUDIO:= true
 
 # If you'd like to build the audio components from source instead of using
 # the prebuilts, uncomment BOARD_USES_ALSA_AUDIO := true above and add the
