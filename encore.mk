@@ -265,6 +265,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.nobootanimation=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-swap=false \
     dalvik.vm.dex2oat-flags=--no-watch-dog
 
 PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true
