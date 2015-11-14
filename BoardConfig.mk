@@ -163,10 +163,6 @@ HARDWARE_OMX := true
 
 BOARD_USES_SECURE_SERVICES := true
 
-# SELinux stuff
-BOARD_SEPOLICY_DIRS += \
-    device/bn/encore/sepolicy
-
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true

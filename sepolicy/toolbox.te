@@ -1,6 +1,0 @@
-#============= toolbox ==============
-allow toolbox init:fifo_file { write getattr };
-allow toolbox radio_data_file:dir search;
-allow toolbox self:capability dac_override;
-allow toolbox wifi_data_file:file { read open };
-

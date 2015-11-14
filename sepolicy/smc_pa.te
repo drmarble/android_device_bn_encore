@@ -1,4 +1,0 @@
-type smc_pa, domain;
-type smc_pa_exec, exec_type, file_type;
-
-init_daemon_domain(smc_pa)

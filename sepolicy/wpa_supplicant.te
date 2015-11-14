@@ -1,2 +1,0 @@
-type rfkill_device, dev_type;
-allow wpa rfkill_device:chr_file rw_file_perms;

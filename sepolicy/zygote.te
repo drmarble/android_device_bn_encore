@@ -1,3 +1,0 @@
-#============= zygote ==============
-allow zygote kernel:system module_request;
-
