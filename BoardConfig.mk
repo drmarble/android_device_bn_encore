@@ -45,8 +45,9 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 
 #WITH_DEXPREOPT := true
 
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/bn/encore/releasetools/encore_img_from_target_files
+TARGET_RELEASETOOL_MAKE_RECOVERY_PATCH_SCRIPT := device/bn/encore/releasetools/encore_make_recovery_patch
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/bn/encore/releasetools/encore_ota_from_target_files
 TARGET_SYSTEMIMAGE_USE_SQUISHER := true
 TARGET_USE_FILE_OTA := true
 TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
@@ -68,9 +69,6 @@ TARGET_PROVIDES_RELEASETOOLS := true
 TARGET_BOOTLOADER_IS_2ND := true
 
 SKIP_BOOT_JARS_CHECK := true
-BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
-TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
-#TARGET_NO_RECOVERY := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
@@ -176,7 +174,6 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # Recovery options
 
-#TARGET_NO_RECOVERY := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_keys.c
 BOARD_CUSTOM_RECOVERY_UI := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "/system/bin/update_bcb.sh"
