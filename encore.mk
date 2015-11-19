@@ -163,7 +163,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/recovery_emmc_protect.sh:recovery/root/sbin/recovery_emmc_protect.sh
 
 PRODUCT_COPY_FILES += \
-    device/bn/encore/releasetools/install-recovery.sh:$(PRODUCT_OUT)/ota_temp/SYSTEM/bin/install-recovery.sh
+    device/bn/encore/releasetools/install-recovery.sh:$(PRODUCT_OUT)/ota_temp/SYSTEM/bin/install-recovery.sh \
+    device/bn/encore/releasetools/recovery-from-boot.p:$(PRODUCT_OUT)/ota_temp/SYSTEM/recovery-from-boot.p
 
 # XXX MAGIC: build process will delete any existing init.*.rc files from the
 # recovery image, then copy this file from the main initramfs to the recovery
