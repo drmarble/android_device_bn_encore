@@ -100,6 +100,10 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml \
    $(LOCAL_PATH)/etc/media_codecs.xml:system/etc/media_codecs.xml
 
+#PRODUCT_COPY_FILES += \
+#   frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+#   frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
 # Clears the boot counter
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bin/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
@@ -244,7 +248,6 @@ PRODUCT_PACKAGES += \
 	libstlport \
 	libboringssl-compat \
 	libstagefrighthw \
-	libion \
 	libion_ti \
 	smc_pa_ctrl \
 	tf_daemon
