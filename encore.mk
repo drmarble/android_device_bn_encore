@@ -245,7 +245,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	libdomx \
-	libstlport \
 	libboringssl-compat \
 	libstagefrighthw \
 	libion_ti \
