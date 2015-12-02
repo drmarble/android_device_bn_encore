@@ -253,7 +253,6 @@ PRODUCT_PACKAGES += \
 	tf_daemon
 
 PRODUCT_PACKAGES += \
-	libcorkscrew \
 	cexec.out
 
 PRODUCT_CHARACTERISTICS := tablet
