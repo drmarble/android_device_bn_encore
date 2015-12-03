@@ -241,6 +241,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
         libskiahw
 
+# DRM
+PRODUCT_PACKAGES += \
+	libwvm
+
 # from omap3.mk.
 
 PRODUCT_PACKAGES += \
