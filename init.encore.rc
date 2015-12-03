@@ -18,6 +18,9 @@ on early-init
     symlink /storage/sdcard1 /sdcard
     symlink /storage/sdcard1 /mnt/sdcard
 
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
     export EXTERNAL_STORAGE /storage/sdcard1
     export SECONDARY_STORAGE /storage/sdcard0
 
@@ -58,15 +61,6 @@ on fs
     swapon_all /fstab.encore
 
 on post-fs-data
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
-
-    # update vold configuration in fstab
-    start configure_vold
-    wait /dev/.vold_configured
-
-    setprop vold.post_fs_data_done 1
 
 # wi-fi
     mkdir /data/misc/wifi 0770 wifi wifi
@@ -245,16 +239,16 @@ service pvrsrvinit /system/bin/pvrsrvinit
     group root
     disabled
     oneshot
+ 
+#service configure_vold /system/bin/configure_vold.sh
+#    class core
+#    disabled
+#    oneshot
 
-service configure_vold /system/bin/configure_vold.sh
-    class core
-    disabled
-    oneshot
-
-service confmountserv /system/bin/configure_mountservice.sh
-    class core
-    disabled
-    oneshot
+#service confmountserv /system/bin/configure_mountservice.sh
+#    class core
+#    disabled
+#    oneshot
 
 # Update the battery data heuristics every hour
 service logbatterydata /system/bin/log_battery_data.sh
@@ -325,38 +319,6 @@ service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
 service iprenew_bt-pan /system/bin/dhcpcd -n
     class main
     disabled
-    oneshot
-
-# FUSE sdcard daemon for rich permissions on external storage (runs as media_rw)
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-   class late_start
-   disabled
-
-service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard0 /storage/sdcard0
-   class late_start
-   disabled
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
-   class late_start
-   disabled
-
-# FUSE sdcard daemon for emulated storage on /data/media
-service fuse_datamedia /system/bin/sdcard -u 1023 -g 1023 /data/media/0 /storage/sdcard0
-    class late_start
-    disabled
-
-# FUSE sdcard daemon for emulated storage on eMMC /data partition's /data/media
-# (for SD card installs only)
-service fuse_emmcmedia /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/emmcdata/media/0 /storage/sdcard0
-    class late_start
-    disabled
-
-# Start the appropriate FUSE sdcard service for /emmc depending on install
-# location and eMMC partition layout
-service emmcstorage /system/bin/mount_emmc_storage.sh
-    class late_start
-    user root
-    group root
     oneshot
 
 # load DSP firmware

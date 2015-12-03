@@ -277,7 +277,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap=false \
     dalvik.vm.dex2oat-flags=--no-watch-dog
 
-PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true
+PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true \
+	ro.mnt.sdcard0.emulated=true \
+	ro.mnt.sdcard0.allowUMS=false \
+	ro.mnt.sdcard0.mtpReserve=256 \
+	ro.mnt.sdcard0.maxFileSize=0
+
 
 PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.jit.codecachesize=0
 
