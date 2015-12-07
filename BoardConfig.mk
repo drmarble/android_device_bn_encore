@@ -92,9 +92,10 @@ TARGET_KERNEL_MODULES := wifi_modules
 TARGET_ARCH_LOWMEM := true
 
 # HW Graphics (EGL fixes + webkit fix)
-BOARD_EGL_CFG := device/bn/encore/egl.cfg
+#BOARD_EGL_CFG := device/bn/encore/egl.cfg
 USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
