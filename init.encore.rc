@@ -210,8 +210,8 @@ on post-fs-data
 
 on early-boot
     start pvrsrvinit
-    start confmountserv
-    wait /dev/.mountservice_configured
+#    start confmountserv
+#    wait /dev/.mountservice_configured
 
 on boot
     
