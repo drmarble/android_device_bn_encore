@@ -29,65 +29,18 @@ typedef enum {
 } bootdevice_t;
 
 static bootdevice_t parse_bootdevice_arg(char *arg) {
-	size_t namelen = strlen(BOOTDEVICE_PARAM);
-	if (strncmp(BOOTDEVICE_PARAM, arg, namelen) == 0) {
-		arg += namelen;
-		if (strcmp("eMMC", arg) == 0)
-			return EMMC;
-		else if (strcmp("SD", arg) == 0)
-			return SD;
-	}
-	return UNKNOWN;
+	return EMMC;
 }
 
 int main() {
 	FILE *fp;
 	char cmdline[CMDLINE_MAX];
 	char *arg;
-	bootdevice_t bootdev = UNKNOWN;
-
-	if (!(fp = fopen("/proc/cmdline", "r"))) {
-		fprintf(stderr, "Couldn't open kernel commandline!");
-		goto do_symlinks;
-	}
-	if (!fgets(cmdline, CMDLINE_MAX, fp)) {
-		fprintf(stderr, "Couldn't read kernel commandline!");
-		fclose(fp);
-		goto do_symlinks;
-	}
-	fclose(fp);
-
-	/* Split command line into arguments and look for bootdev info */
-	arg = strtok(cmdline, " ");
-	if (arg)
-		do {
-			bootdev = parse_bootdevice_arg(arg);
-		} while (bootdev == UNKNOWN && (arg = strtok(NULL, " ")));
-
-do_symlinks:
-	if (bootdev == UNKNOWN)
-		fprintf(stderr, "WARNING: boot device not passed on kernel commandline");
-
-	/* Set up the appropriate device symlinks for the boot device */
-	switch (bootdev) {
-	case SD:
-		if (symlink("/dev/block/mmcblk1p1", SYMLINKS_DIR "boot") ||
-		    symlink("/dev/block/mmcblk1p3", SYMLINKS_DIR "userdata") ||
-		    symlink("/dev/block/mmcblk1p2", SYMLINKS_DIR "system")) {
-			perror("Creating device symlink failed");
-			return 1;
-		}
-		break;
-	case EMMC:
-	default:
 		if (symlink("/dev/block/mmcblk0p1", SYMLINKS_DIR "boot") ||
 		    symlink("/dev/block/mmcblk0p6", SYMLINKS_DIR "userdata") ||
 		    symlink("/dev/block/mmcblk0p5", SYMLINKS_DIR "system")) {
 			perror("Creating device symlink failed");
 			return 1;
 		}
-		break;
-	}
-
 	return 0;
 }
