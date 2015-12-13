@@ -35,11 +35,11 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc \
     device/bn/encore/fstab.encore:root/fstab.encore
 
-PRODUCT_PACKAGES += \
-    fsfinder \
-    configure_vold.sh \
-    configure_mountservice.sh \
-    mount_emmc_storage.sh
+#PRODUCT_PACKAGES += \
+#    fsfinder \
+#    configure_vold.sh \
+#    configure_mountservice.sh \
+#    mount_emmc_storage.sh
 
 # CM Platform Library
 PRODUCT_PACKAGES += \

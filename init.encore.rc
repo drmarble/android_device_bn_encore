@@ -18,9 +18,6 @@ on early-init
     symlink /storage/sdcard1 /sdcard
     symlink /storage/sdcard1 /mnt/sdcard
 
-    symlink /sdcard /mnt/sdcard
-    symlink /sdcard /storage/sdcard0
-
     export EXTERNAL_STORAGE /storage/sdcard1
     export SECONDARY_STORAGE /storage/sdcard0
 
@@ -37,6 +34,8 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
     symlink /system/vendor /vendor
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
     # for encore
     mkdir /rom 0755 root root
@@ -53,7 +52,9 @@ on init
 on fs
     # set up links to block devices based on boot location
     mkdir /dev/block/by-name 0755 root root
-    start fsfinder
+    symlink /dev/block/mmcblk0p1 /dev/block/by-name/boot
+    symlink /dev/block/mmcblk0p6 /dev/block/by-name/userdata
+    symlink /dev/block/mmcblk0p5 /dev/block/by-name/system
     wait /dev/block/by-name/system
 
     # mount partitions
