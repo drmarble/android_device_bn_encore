@@ -5,15 +5,15 @@
 ######################
 /dev/block/by-name/system	/system	ext4	ro,barrier=0	wait
 /dev/block/by-name/userdata	/data	ext4	noatime,nosuid,nodev,barrier=0,noauto_da_alloc	wait,check
-/dev/block/mmcblk0p7	/cache	ext4	noatime,nosuid,nodev,barrier=0	wait,check
-/dev/block/mmcblk0p2	/rom	vfat	noatime,nodiratime,uid=1000,gid=1000,fmask=117,dmask=007	defaults
-/dev/block/by-name/boot	/boot	vfat	fmask=177,dmask=077	recoveryonly
+/dev/block/mmcblk0p7	/cache	ext4	noatime,nosuid,nodev,barrier=0	wait,check,encryptable=footer,length=-16384
+/dev/block/mmcblk0p2	/rom	vfat	noatime,nodiratime,uid=1000,gid=1000,fmask=117,dmask=007	wait
+/dev/block/by-name/boot	/boot	emmc defaults defaults
 
 # Swap devices
 /dev/block/zram0	none	swap	defaults	zramsize=100663296
 
 # Bootloader control block
-/dev/block/by-name/bcb	/misc	emmc	defaults	recoveryonly
+/dev/block/by-name/bcb	/misc	emmc	defaults	defaults
 
 #
 # vold-managed volumes ("block device" is actually a sysfs devpath)
@@ -21,7 +21,7 @@
 /devices/platform/omap/omap_hsmmc.0/mmc_host/mmc1*	auto	auto	defaults	voldmanaged=sdcard1:auto,encryptable=userdata
 
 ## nookcolor has two fat32 partitions, p1 is boot p8 is internal storage, so we have to specify here
-/devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0*	auto	vfat	defaults	voldmanaged=sdcard0:8
+/devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0*	auto	vfat	defaults	voldmanaged=sdcard0:8,encryptable=userdata
 
 ## USB storage device
-/devices/platform/musb_hdrc				auto	auto	defaults	voldmanaged=usbdisk:auto
+#/devices/platform/musb_hdrc				auto	auto	defaults	voldmanaged=usbdisk:auto
