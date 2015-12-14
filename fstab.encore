@@ -13,7 +13,7 @@
 /dev/block/zram0	none	swap	defaults	zramsize=100663296
 
 # Bootloader control block
-/dev/block/by-name/bcb	/misc	emmc	defaults	defaults
+#/dev/block/by-name/bcb	/misc	emmc	defaults	defaults
 
 #
 # vold-managed volumes ("block device" is actually a sysfs devpath)
