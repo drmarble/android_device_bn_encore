@@ -1,44 +1,23 @@
 import init.encore.usb.rc
 
 on early-init
-    # cap max CPU frequency to 1 GHz as soon as possible
+    # cap max CPU frequency to 1.2 GHz as soon as possible
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1200000
-
-    mkdir /storage 0751 root sdcard_r
-    mkdir /storage/sdcard0 0000 system system
-    mkdir /storage/sdcard1 0000 system system
-    mkdir /mnt/media_rw 0700 media_rw media_rw
-    mkdir /mnt/media_rw/sdcard0 0000 system system
-    mkdir /mnt/media_rw/sdcard1 0000 system system
-    mkdir /mnt/media_rw/emmcdata 0000 system system
-
-# for backwards compatibility
-    symlink /storage/sdcard0 /mnt/emmc
-    symlink /storage/sdcard0 /emmc
-    symlink /storage/sdcard1 /sdcard
-    symlink /storage/sdcard1 /mnt/sdcard
-
-    export EXTERNAL_STORAGE /storage/sdcard1
-    export SECONDARY_STORAGE /storage/sdcard0
 
 on init
 
     # setup global environment
-    export PHONE_STORAGE /storage/sdcard0
     export DSP_PATH /system/lib/dsp
     export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
 
     # create mountpoints
-    mkdir /storage/usbdisk 0000 system system
-    mkdir /mnt/media_rw/usbdisk 0000 system system
-    symlink /storage/usbdisk /usbdisk
-    symlink /storage/usbdisk /mnt/usbdisk
     symlink /system/vendor /vendor
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
     # for encore
     mkdir /rom 0755 root root
+    mkdir /bcb 0755 root root
 
     # disable swap page clustering -- helpful on disk, not with zram
     write /proc/sys/vm/page-cluster 0
@@ -60,6 +39,9 @@ on fs
     # mount partitions
     mount_all /fstab.encore
     swapon_all /fstab.encore
+
+    # change permissions for ION driver
+    chmod 0777 /dev/ion
 
 on post-fs-data
 
@@ -225,10 +207,10 @@ on property:dev.bootcomplete=1
     write /sys/kernel/mm/ksm/sleep_millisecs 500
     write /sys/kernel/mm/ksm/run 1
 
-service fsfinder /sbin/fsfinder
-    class core
-    disabled
-    oneshot
+#service fsfinder /sbin/fsfinder
+#    class core
+#    disabled
+#    oneshot
 
 #service mountd /system/bin/mountd
 #   socket mountd stream 0660 root mount
@@ -256,6 +238,15 @@ service logbatterydata /system/bin/log_battery_data.sh
     class core
     user root
     group root
+
+# create filesystems if necessary
+service setup_fs /system/bin/setup_fs \
+    /dev/block/by-name/cache \
+    /dev/block/by-name/userdata
+    class core
+    user root
+    group root
+    oneshot
 
 # OMAP specific services start here
 
