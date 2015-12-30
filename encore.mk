@@ -249,7 +249,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	libdomx \
-	libboringssl-compat \
 	libstagefrighthw \
 	libion_ti \
 	smc_pa_ctrl \
