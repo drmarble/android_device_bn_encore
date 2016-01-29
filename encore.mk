@@ -170,6 +170,9 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/releasetools/install-recovery.sh:$(PRODUCT_OUT)/ota_temp/SYSTEM/bin/install-recovery.sh \
     device/bn/encore/releasetools/recovery-from-boot.p:$(PRODUCT_OUT)/ota_temp/SYSTEM/recovery-from-boot.p
 
+#TWRP
+PRODUCT_COPY_FILES += device/bn/encore/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
+
 # XXX MAGIC: build process will delete any existing init.*.rc files from the
 # recovery image, then copy this file from the main initramfs to the recovery
 PRODUCT_COPY_FILES += \
