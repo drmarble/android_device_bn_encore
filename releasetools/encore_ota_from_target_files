@@ -70,10 +70,17 @@ def WriteFullOTAPackage(input_zip, output_zip):
   device_specific.FullOTA_Assertions()
   device_specific.FullOTA_InstallBegin()
 
+  CopyInstallTools(output_zip)
+  script.UnpackPackageDir("install", "/tmp/install")
+  script.SetPermissionsRecursive("/tmp/install", 0, 0, 0o755, 0o644, None, None)
+  script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0o755, 0o755, None, None)
+
   if OPTIONS.backuptool:
+    #script.Mount("/sdcard1")
     script.Mount("/system")
     script.RunBackup("backup")
     script.Unmount("/system")
+    #script.Unmount("/sdcard1")
 
   script.ShowProgress(0.5, 0)
 
