@@ -1,24 +1,9 @@
 on init
     mkdir /dev/block/by-name 0755 root root
-    start fsfinder
-    wait /dev/block/by-name/system
+    start mount_sdcard
 
-    start emmc_protect
-
-    start configure_vold
-    wait /dev/.vold_configured
-
-service fsfinder /sbin/fsfinder
+service mount_sdcard /sbin/mount_sdcard.sh
     class core
     disabled
     oneshot
 
-service emmc_protect /sbin/recovery_emmc_protect.sh start
-    class core
-    disabled
-    oneshot
-
-service configure_vold /sbin/configure_vold.sh
-    class core
-    disabled
-    oneshot

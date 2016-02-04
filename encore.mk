@@ -162,6 +162,7 @@ PRODUCT_COPY_FILES += \
 
 # additions to recovery
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/40-mount_sdcard.sh:system/addon.d/40-mount_sdcard.sh \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
     $(LOCAL_PATH)/recovery/recovery_rescue_mode.sh:recovery/root/sbin/recovery_rescue_mode.sh \
     $(LOCAL_PATH)/recovery/recovery_emmc_protect.sh:recovery/root/sbin/recovery_emmc_protect.sh
