@@ -1,9 +1,5 @@
 on init
-    mkdir /dev/block/by-name 0755 root root
-    start mount_sdcard
+    wait /dev/block/mmcblk0p5
 
-service mount_sdcard /sbin/mount_sdcard.sh
-    class core
-    disabled
-    oneshot
+    mkdir /dev/block/by-name 0755 root root
 
