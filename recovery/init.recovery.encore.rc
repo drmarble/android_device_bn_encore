@@ -2,4 +2,5 @@ on init
     wait /dev/block/mmcblk0p5
 
     mkdir /dev/block/by-name 0755 root root
-
+    export PATH /sbin
+    export LD_LIBRARY_PATH .:/sbin

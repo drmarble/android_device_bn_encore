@@ -3,12 +3,11 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot 
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK 
 ######################
-# mount point	fstype    device    	[device2]
-/boot		vfat	  /dev/block/mmcblk0p1
-/rom            vfat      /dev/block/mmcblk0p2
-/system		ext4	  /dev/block/mmcblk0p5
-/data  	 	ext4      /dev/block/mmcblk0p6
-/cache      	ext4      /dev/block/mmcblk0p7
-/emmc  	 	vfat      /dev/block/mmcblk0p8   flags=display="Internal Storage";storage;wipeingui
-/sdcard	 	vfat      /dev/block/mmcblk1p1   /dev/block/mmcblk1  flags=display="Micro SDcard";storage;wipeingui;removable
+/dev/block/mmcblk0p5	/system	ext4	noatime	defaults
+/dev/block/mmcblk0p6	/data	ext4	noatime	defaults
+/dev/block/mmcblk0p7	/cache	ext4	noatime	defaults
+/dev/block/mmcblk0p2	/rom	vfat	noatime	defaults
+/dev/block/mmcblk0p1	/boot	vfat	defaults defaults
+/dev/block/mmcblk1p1	/sdcard vfat	defaults defaults	twrp=display="MicroSD";storage;wipeingui;removable
+#/dev/block/by-name/internal_sd	/mnt/media_rw/MyNOOKcolor	vfat	noatime,nosuid,nodev,barrier=0,noauto_da_alloc	wait,check
 
