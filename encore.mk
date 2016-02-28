@@ -41,6 +41,11 @@ PRODUCT_COPY_FILES += \
 #    configure_mountservice.sh \
 #    mount_emmc_storage.sh
 
+# filesystem management tools
+PRODUCT_PACKAGES += \
+	fsck.f2fs \
+	mkfs.f2fs
+
 # CM Platform Library
 PRODUCT_PACKAGES += \
      org.cyanogenmod.platform-res \

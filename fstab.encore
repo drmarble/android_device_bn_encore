@@ -4,7 +4,9 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK 
 ######################
 /dev/block/by-name/system	/system	ext4	ro,barrier=0	wait
+/dev/block/by-name/userdata	/data	f2fs	noatime,nosuid,nodev,nodiratime,discard,inline_xattr,inline_data wait,check,formattable,encryptable=footer,length=-16384
 /dev/block/by-name/userdata	/data	ext4	noatime,nosuid,nodev,barrier=0,noauto_da_alloc	wait,check
+/dev/block/mmcblk0p7	/cache	f2fs	noatime,nosuid,nodev,nodiratime,discard,inline_xattr,inline_data wait,check,formattable
 /dev/block/mmcblk0p7	/cache	ext4	noatime,nosuid,nodev,barrier=0	wait,check,encryptable=footer,length=-16384
 /dev/block/mmcblk0p2	/rom	vfat	noatime,nodiratime,uid=1000,gid=1000,fmask=117,dmask=007	wait
 /dev/block/by-name/boot	/boot	vfat	defaults defaults
