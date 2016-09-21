@@ -213,7 +213,8 @@ PRODUCT_PACKAGES += \
     libomap_mm_library_jni \
     librs_jni \
     libtiOsLib \
-    make_ext4fs
+    make_ext4fs \
+    mkbootimg
 
 # OMX components
 # Addition of LOCAL_MODULE_TAGS requires us to specify
