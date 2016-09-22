@@ -33,7 +33,7 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a8
 ARCH_ARM_HAVE_ARMV7A := true
 
-COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM
+BOARD_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM
 
 TARGET_SPECIFIC_HEADER_PATH := device/bn/encore/include
 
@@ -58,7 +58,8 @@ BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 TARGET_NO_RADIOIMAGE := true
 
 # Kernel image configuration
-KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-eabi-4.8/bin
+#KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-eabi-4.8/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(PWD)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
 BOARD_KERNEL_CMDLINE := androidboot.console=ttyO0,115200n8 rw init=/init videoout=omap24xxvout omap_vout_mod.video1_numbuffers=6 omap_vout_mod.vid1_static_vrfb_alloc=y omap_vout_mod.video2_numbuffers=6 omap_vout_mod.vid2_static_vrfb_alloc=y omapfb.vram=0:8M no_console_suspend androidboot.selinux=permissive androidboot.hardware=encore
 BOARD_KERNEL_BASE := 0x20000000
 BOARD_KERNEL_IMAGE_NAME := uImage
@@ -84,7 +85,7 @@ wifi_modules:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko $(KERNEL_MODULES_OUT)/mac80211.ko $(KERNEL_MODULES_OUT)/cfg80211.ko $(KERNEL_MODULES_OUT)/wl12xx.ko $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+#	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko $(KERNEL_MODULES_OUT)/mac80211.ko $(KERNEL_MODULES_OUT)/cfg80211.ko $(KERNEL_MODULES_OUT)/wl12xx.ko $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
 
 TARGET_KERNEL_MODULES := wifi_modules
 
@@ -113,11 +114,11 @@ BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
 
 # for frameworks/native/libs/gui
 # disable use of EGL_KHR_fence_sync extension, since it slows things down
-COMMON_GLOBAL_CFLAGS += -DDONT_USE_FENCE_SYNC
+BOARD_GLOBAL_CFLAGS += -DDONT_USE_FENCE_SYNC
 
 # for frameworks/native/services/surfaceflinger
 # use EGL_IMG_context_priority extension, which helps performance
-COMMON_GLOBAL_CFLAGS += -DHAS_CONTEXT_PRIORITY
+BOARD_GLOBAL_CFLAGS += -DHAS_CONTEXT_PRIORITY
 
 # OMAP3 HWC: disable use of YUV overlays
 # Prevents stuttering/compositing artifacts and sync loss during video playback
@@ -137,7 +138,7 @@ BOARD_WLAN_DEVICE                := wl12xx_mac80211
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wl12xx_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER             := ""
-COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
+BOARD_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
 BOARD_WIFI_SKIP_CAPABILITIES     := true
 
 # Bluetooth
