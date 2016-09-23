@@ -1,0 +1,12 @@
+# clearbootdata
+type clearbootdata, domain;
+type clearbootdata_exec, exec_type, file_type;
+
+init_daemon_domain(clearbootdata)
+
+allow clearbootdata rootfs:file {entrypoint execute execute_no_trans};
+allow clearbootdata vfat:dir search;
+allow clearbootdata vfat:file {open getattr read write};
+allow clearbootdata shell_exec:file {read entrypoint};
+
+allow clearbootdata self:capability dac_override;

@@ -1,0 +1,21 @@
+# fix mac address script domain
+type fixmac, domain;
+type fixmac_exec, exec_type, file_type;
+
+set_prop(fixmac, wifi_prop)
+
+init_daemon_domain(fixmac)
+
+allow fixmac fixmac_exec:file {execute getattr read open execute_no_trans};
+allow fixmac shell_exec:file read;
+allow fixmac radio_data_file:dir search;
+allow fixmac wifi_data_file:dir {search write add_name};
+allow fixmac wifi_data_file:file {open create read write append getattr};
+allow fixmac vfat:dir search;
+allow fixmac vfat:file {read open getattr};
+
+allow fixmac property_socket:sock_file write;
+allow fixmac init:unix_stream_socket connectto;
+
+allow fixmac self:capability dac_override;
+allow fixmac self:capability dac_read_search;

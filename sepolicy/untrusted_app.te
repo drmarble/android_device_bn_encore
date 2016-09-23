@@ -1,0 +1,1 @@
+allow untrusted_app toolbox_exec:file {execute_no_trans getattr execute read open};

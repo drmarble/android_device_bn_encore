@@ -1,0 +1,12 @@
+allow toolbox self:capability sys_module;
+allow toolbox kernel:system module_request;
+allow toolbox vfat:file { read write open getattr };
+
+allow init vfat:file { read getattr write open };
+allow init vfat:dir search;
+
+# We load modules in our init.rc scripts
+allow init self:capability sys_module;
+allow init kernel:system module_request;
+
+allow init tmpfs:lnk_file create;
