@@ -43,6 +43,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
+BOARD_CUSTOM_BOOTIMG := true
 
 #WITH_DEXPREOPT := true
 
@@ -74,7 +75,7 @@ SKIP_BOOT_JARS_CHECK := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
-TARGET_KERNEL_CONFIG := encore_cm13_defconfig
+TARGET_KERNEL_CONFIG := encore_cm14_defconfig
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
 
@@ -129,6 +130,10 @@ BOARD_VOLD_MAX_PARTITIONS := 8
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
 
+# Fonts (lots fewer noto-fonts)
+SMALLER_FONT_FOOTPRINT := true
+MINIMAL_FONT_FOOTPRINT := true
+
 # Connectivity - Wi-Fi
 USES_TI_MAC80211 := true
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
@@ -165,6 +170,11 @@ BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 HARDWARE_OMX := true
 
 BOARD_USES_SECURE_SERVICES := true
+
+BOARD_SEPOLICY_DIRS += \
+	$(DEVICE_FOLDER)/sepolicy
+
+WITH_CM_CHARGER := false
 
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
