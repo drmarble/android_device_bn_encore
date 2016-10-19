@@ -75,6 +75,7 @@ BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
 TARGET_PROVIDES_RELEASETOOLS := true
 # Include a 2ndbootloader
 TARGET_BOOTLOADER_IS_2ND := true
+KERNEL_HAS_FINIT_MODULE := false
 
 SKIP_BOOT_JARS_CHECK := true
 
@@ -177,7 +178,7 @@ HARDWARE_OMX := true
 BOARD_USES_SECURE_SERVICES := true
 
 BOARD_SEPOLICY_DIRS += \
-	$(DEVICE_FOLDER)/sepolicy
+	device/bn/encore/sepolicy
 
 WITH_CM_CHARGER := false
 
