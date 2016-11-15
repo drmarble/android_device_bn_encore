@@ -1,0 +1,23 @@
+# store_mac_addr script domain
+
+type store_mac_addr, domain;
+type store_mac_addr_exec, exec_type, file_type;
+
+set_prop(store_mac_addr, wifi_prop)
+
+init_daemon_domain(store_mac_addr)
+
+allow store_mac_addr store_mac_addr_exec:file {execute getattr read open execute_no_trans};
+allow store_mac_addr shell_exec:file read;
+allow store_mac_addr radio_data_file:dir search;
+allow store_mac_addr wifi_data_file:dir {search write add_name};
+allow store_mac_addr wifi_data_file:file {open create read write append getattr};
+allow store_mac_addr vfat:dir search;
+allow store_mac_addr vfat:file {read open getattr};
+
+allow store_mac_addr property_socket:sock_file write;
+allow store_mac_addr init:unix_stream_socket connectto;
+
+allow store_mac_addr self:capability dac_override;
+allow store_mac_addr self:capability dac_read_search;
+

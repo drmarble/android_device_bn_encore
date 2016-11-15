@@ -10,3 +10,5 @@ allow init self:capability sys_module;
 allow init kernel:system module_request;
 
 allow init tmpfs:lnk_file create;
+
+

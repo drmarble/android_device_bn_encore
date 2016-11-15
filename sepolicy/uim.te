@@ -1,0 +1,10 @@
+# uim
+type uim, domain;
+type uim_exec, exec_type, file_type;
+
+init_daemon_domain(uim)
+
+allow uim uim_exec:file rx_file_perms;
+allow uim shell_exec:file rx_file_perms;
+#allow uim tee_exec:file rx_file_perms;
+#allow uim tee_device:chr_file rw_file_perms;

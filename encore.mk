@@ -160,6 +160,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
+# insmod for nougat from busybox
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/insmod:system/xbin/insmod
+
+
 # BCB updating (for reboot to recovery)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bin/update_bcb.sh:system/bin/update_bcb.sh \

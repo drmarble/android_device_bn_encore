@@ -44,14 +44,14 @@ on fs
 on post-fs-data
 
 # wi-fi
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-    insmod /system/lib/modules/cfg80211.ko
-    insmod /system/lib/modules/mac80211.ko
-    insmod /system/lib/modules/wl12xx.ko
-    start store_mac_addr
+#    mkdir /data/misc/wifi 0770 wifi wifi
+#    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+#    mkdir /data/misc/dhcp 0770 dhcp dhcp
+#    chown dhcp dhcp /data/misc/dhcp
+#    /system/xbin/insmod /system/lib/modules/cfg80211.ko
+#    /system/xbin/insmod /system/lib/modules/mac80211.ko
+#    /system/xbin/insmod /system/lib/modules/wl12xx.ko
+#    start store_mac_addr
 
 
     mkdir /data/local 0771 shell shell
@@ -238,19 +238,20 @@ service logbatterydata /system/bin/log_battery_data.sh
     group root
 
 # create filesystems if necessary
-service setup_fs /system/bin/setup_fs \
-    /dev/block/by-name/cache \
-    /dev/block/by-name/userdata
-    class core
-    user root
-    group root
-    oneshot
+#service setup_fs /system/bin/setup_fs \
+#    /dev/block/by-name/cache \
+#    /dev/block/by-name/userdata
+#    class core
+#    user root
+#    group root
+#    oneshot
 
 # OMAP specific services start here
 
 service bootcnt /system/bin/clear_bootcnt.sh
     class core
     user root
+    seclabel u:r:uim:s0
     group root
     disabled
     oneshot
@@ -269,12 +270,32 @@ service bootcnt /system/bin/clear_bootcnt.sh
 
 service uim /system/bin/uim-sysfs
     class core
+    seclabel u:r:uim:s0
     user root
     group media bluetooth
     oneshot
 
+# wi-fi
+on property:sys.boot_completed=1
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    insmod /system/lib/modules/cfg80211.ko
+    insmod /system/lib/modules/mac80211.ko
+    insmod /system/lib/modules/wl12xx.ko
+#    /system/xbin/insmod /system/lib/modules/cfg80211.ko
+#    /system/xbin/insmod /system/lib/modules/mac80211.ko
+#    /system/xbin/insmod /system/lib/modules/wl12xx.ko
+    start store_mac_addr
+
+on property:wifi.nvs_ready=1
+    insmod /system/lib/modules/wl12xx_sdio.ko
+
+
 service store_mac_addr /system/xbin/store-mac-addr.sh
     class core
+    seclabel u:r:uim:s0
     disabled
     oneshot
 
@@ -315,6 +336,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
     class main
     user root
+    seclabel u:r:uim:s0
     group root
     oneshot
 

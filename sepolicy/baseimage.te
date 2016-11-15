@@ -1,0 +1,16 @@
+# baseimage
+
+type baseimage, domain;
+type baseimage_exec, exec_type, file_type;
+
+init_daemon_domain(baseimage)
+
+allow baseimage kernel:system module_request;
+allow baseimage self:capability { sys_module };
+allow baseimage system_file:file x_file_perms;
+allow baseimage shell_exec:file rx_file_perms;
+allow baseimage baseimage_exec:file rx_file_perms;
+allow baseimage property_socket:sock_file write;
+allow baseimage init:unix_stream_socket connectto;
+
+

@@ -48,4 +48,10 @@ cp "$ROM_NVS" "$ORIG_NVS"
 # the NVS file accordingly
 cp "$MACADDR_FILE" "$MACADDR_COPY"
 
+# busybox insmod the drivers...
+    /system/xbin/insmod /system/lib/modules/cfg80211.ko
+    /system/xbin/insmod /system/lib/modules/mac80211.ko
+    /system/xbin/insmod /system/lib/modules/wl12xx.ko
+    /system/xbin/insmod /system/lib/modules/wl12xx_sdio.ko
+
 exit 0

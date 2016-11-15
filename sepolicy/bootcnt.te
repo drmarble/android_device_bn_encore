@@ -1,0 +1,12 @@
+# bootcnt
+type bootcnt, domain;
+type bootcnt_exec, exec_type, file_type;
+
+init_daemon_domain(bootcnt)
+
+allow bootcnt rootfs:file {entrypoint execute execute_no_trans};
+allow bootcnt vfat:dir search;
+allow bootcnt vfat:file {open getattr read write};
+allow bootcnt shell_exec:file {read entrypoint};
+
+allow bootcnt self:capability dac_override;

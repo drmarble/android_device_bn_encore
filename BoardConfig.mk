@@ -43,7 +43,9 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
+BOARD_CACHEIMAGE_PARTITION_SIZE := 368054272
 BOARD_FLASH_BLOCK_SIZE := 4096
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CUSTOM_BOOTIMG := true
 
 #WITH_DEXPREOPT := true
@@ -75,9 +77,20 @@ BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
 TARGET_PROVIDES_RELEASETOOLS := true
 # Include a 2ndbootloader
 TARGET_BOOTLOADER_IS_2ND := true
+
 KERNEL_HAS_FINIT_MODULE := false
 
+# Malloc, dlmalloc for very low memory
+#build/core/envsetup.mk:162: *** Unsupported option MALLOC_IMPL defined by board config: device/bn/encore/BoardConfig.mk.
+#build/core/envsetup.mk:163: *** Use `MALLOC_SVELTE := true` to configure jemalloc for low-memory.  Stop.
+#MALLOC_IMPL := dlmalloc
+# Configure jemalloc for low-memory
+MALLOC_SVELTE := true
+
 SKIP_BOOT_JARS_CHECK := true
+
+# Not quite ready for Toybox
+#WITH_BUSYBOX_LINKS := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
@@ -85,8 +98,41 @@ TARGET_KERNEL_CONFIG := encore_cm14_defconfig
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
 
+#KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
+#TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
+#KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
+
 wifi_modules:
+#	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
+
+#ovation
+#	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
+#	make -j8 -C hardware/ti/wlan/mac80211/compat_wl12xx KERNELDIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+#	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko
+#	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/cfg80211.ko
+#	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/mac80211.ko
+#	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx.ko
+#	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+
+#acclaim
+
+#	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
+#	make -C hardware/ti/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) EXTRA_CFLAGS=-fno-pic ARCH=arm CROSS_COMPILE=$(KERNEL_TOOLCHAIN_PREFIX)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+#	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+#	$(KERNEL_TOOLCHAIN)/$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko $(KERNEL_MODULES_OUT)/mac80211.ko $(KERNEL_MODULES_OUT)/cfg80211.ko $(KERNEL_MODULES_OUT)/wl12xx.ko $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+
+#encore
 	make -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(KERNEL_CROSS_COMPILE)
+
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
@@ -138,7 +184,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_stora
 
 # Fonts (lots fewer noto-fonts)
 SMALLER_FONT_FOOTPRINT := true
-MINIMAL_FONT_FOOTPRINT := true
+#MINIMAL_FONT_FOOTPRINT := true
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211 := true
@@ -149,7 +195,7 @@ BOARD_WLAN_DEVICE                := wl12xx_mac80211
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wl12xx_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER             := ""
-BOARD_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
+#BOARD_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
 BOARD_WIFI_SKIP_CAPABILITIES     := true
 
 # Bluetooth
