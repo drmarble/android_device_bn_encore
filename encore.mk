@@ -284,17 +284,27 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=128m \
-    persist.sys.media.use-awesome=true \
     debug.sf.nobootanimation=1
 
+#    persist.sys.media.use-awesome=true \
+
+
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false \
-    dalvik.vm.dex2oat-flags=--no-watch-dog \
-    dalvik.vm.lockprof.threshold=500 \
-    dalvik.vm.dexopt-flags=m=y \
-    dalvik.vm.dex2oat-flags=--no-watch-dog \
-    dalvik.vm.dex2oat-filter=interpret-only \
-    dalvik.vm.image-dex2oat-filter=speed
+    config.disable_atlas=true \
+    ro.am.reschedule_service=true \
+    dalvik.vm.jit.codecachesize=0
+
+#    dalvik.vm.usejit =false 
+
+#    dalvik.vm.dex2oat-swap=false \
+#    dalvik.vm.dex2oat-flags=--no-watch-dog \
+#    dalvik.vm.lockprof.threshold=500 \
+#    dalvik.vm.dexopt-flags=m=y \
+#    dalvik.vm.dex2oat-flags=--no-watch-dog \
+#    dalvik.vm.dex2oat-filter=interpret-only \
+#    dalvik.vm.image-dex2oat-filter=speed
+
+#    ro.am.reschedule_service=true \
 
 PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true \
 	ro.mnt.sdcard0.emulated=true \

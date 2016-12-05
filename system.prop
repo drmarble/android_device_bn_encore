@@ -5,11 +5,16 @@ ro.radio.noril=yes
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=30
 
-ro.vold.switchablepair=/storage/sdcard1,/storage/sdcard0
+#ro.vold.switchablepair=/storage/sdcard1,/storage/sdcard0
 ro.cwm.forbid_format=/boot,/rom
 ro.cwm.forbid_mount=/rom
 persist.sys.usb.config=mtp,adb
 ro.emmc=1
+
+persist.service.adb.enable=1                                                    
+persist.service.debuggable=1
+persist.service.adb.root=1
+persist.sys.usb.config=mtp,adb
 
 ro.opengles.version=131072
 #ro.sf.hwrotation=270
@@ -19,6 +24,12 @@ ro.sf.lcd_density=160
 ro.config.low_ram=true
 # XXX This optimization slows down SGX540; is this true of SGX530 too?
 ro.hwui.disable_scissor_opt=true
+ro.hwui.texture_cache_size=12
+ro.hwui.layer_cache_size=8
+ro.hwui.path_cache_size=2
+ro.hwui.shape_cache_size=0.4
+ro.hwui.drop_shadow_cache_size=1
+ro.hwui.r_buffer_cache_size=1
 # GPU producer to CPU consumer not supported
 ro.bq.gpu_to_cpu_unsupported=1
 
