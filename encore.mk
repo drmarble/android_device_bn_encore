@@ -283,8 +283,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapsize=128m \
-    debug.sf.nobootanimation=1
+    dalvik.vm.heapsize=128m
 
 #    persist.sys.media.use-awesome=true \
 
