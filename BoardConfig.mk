@@ -94,7 +94,7 @@ SKIP_BOOT_JARS_CHECK := true
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/bn/encore
-TARGET_KERNEL_CONFIG := encore_cm14_defconfig
+TARGET_KERNEL_CONFIG := encore_lineage14_defconfig
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
 
